@@ -33,6 +33,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 gem "awesome_rails_console" #rails console變整齊漂亮
+gem "devise" #使用者認證(Authentication)套件
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
