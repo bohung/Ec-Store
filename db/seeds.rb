@@ -12,3 +12,29 @@ u.password = "12345678"              # 最少要八碼
 u.password_confirmation = "12345678" # 最少要八碼
 u.is_admin = true
 u.save
+
+# 建立兩筆商品資料
+
+product = Product.new
+product.title = "Color Inn"
+product.price = "6500000"
+product.quantity = "5"
+product.description = "新大樓"
+product.save
+
+product.build_photo.save
+product.photo.image.store!(File.open(File.join(Rails.root, 'public/color inn.jpg')))
+product.photo.save!
+
+
+product2 = Product.new
+product2.title = "Cowa 皮夾"
+product2.price = "3600"
+product2.quantity = "1"
+product2.description = "birthday gift"
+product2.save
+
+product2.build_photo.save
+product2.photo.image.store!(File.open(File.join(Rails.root, 'public/IMG_2462.jpg')))
+product2.photo.save!
+
