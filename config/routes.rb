@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root "products#index"
+
   devise_for :users
+
   namespace :admin do
     resources :products
     resources :users do
@@ -16,6 +18,9 @@ Rails.application.routes.draw do
       post :add_to_cart
     end
   end
+
+  resources :carts
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
