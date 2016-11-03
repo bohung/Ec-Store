@@ -80,4 +80,6 @@ Rails.application.configure do
   config.after_initialize do
     Pay2go.integration_mode = :production
   end
+
+  config.action_mailer.default_url_options = { host: 'https://git.heroku.com/hidden-eyrie-70814.git' } # 你的 heroku app 網址
 end
