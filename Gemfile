@@ -41,6 +41,7 @@ gem "mini_magick"
 gem "font-awesome-rails"
 gem "aasm"
 gem "letter_opener", group: :development #預覽郵件
+gem "roadie", "2.4.3" #信件加上CSS
 
 
 group :development, :test do
