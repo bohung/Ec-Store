@@ -40,6 +40,7 @@ gem "carrierwave"
 gem "mini_magick"
 gem "font-awesome-rails"
 gem "aasm"
+gem "letter_opener", group: :development #預覽郵件
 
 
 group :development, :test do
