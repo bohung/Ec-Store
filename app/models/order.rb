@@ -6,7 +6,7 @@ class Order < ActiveRecord::Base
 
   accepts_nested_attributes_for :info
 
-  before_create :generate_token
+  include Tokenable
 
   def set_payment_with!(method)
     self.update_columns(payment_method: method)
@@ -14,10 +14,6 @@ class Order < ActiveRecord::Base
 
   def pay!
     self.update_columns(is_paid: true)
-  end
-
-  def generate_token
-    self.token = SecureRandom.uuid
   end
 
   def build_item_cache_from_cart(cart)
