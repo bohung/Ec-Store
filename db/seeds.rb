@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 u = User.new
-u.email = "admin@test.com"           # 可以改成自己的 e-mail
+u.email = "monkeytai3@gmail.com"           # 可以改成自己的 e-mail
 u.password = "12345678"              # 最少要八碼
 u.password_confirmation = "12345678" # 最少要八碼
 u.is_admin = true
