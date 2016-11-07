@@ -44,6 +44,7 @@ gem "letter_opener", group: :development #預覽郵件
 gem "roadie", "2.4.3" #信件加上CSS
 gem "pay2go" #智付寶
 gem "figaro" #管理機密資訊
+gem "fog"    # Ruby cloud services library
 
 group :production do
   gem "pg"
