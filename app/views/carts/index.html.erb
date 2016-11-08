@@ -1,72 +1,179 @@
+<div class="wrapper wrapper-content animated fadeInRight">
 <div class="row">
-  <div class="col-md-12">
+    <div class="col-md-9">
 
-  <%= link_to("清空購物車", clean_carts_path,
-              method: :delete, class: "pull-right",
-              style: "text-decoration: underline;",
-              data: { confirm: "你確定要清空整個購物車嗎?"} )%>
+        <div class="ibox">
+            <div class="ibox-title">
+                <span class="pull-right">(<strong><%= render_cart_items_count(current_cart) %></strong>) 商品數 </span>
+                <h5>商品明細</h5>
+            </div>
+            <div class="ibox-content">
 
-    <h2> 購物車 </h2>
+              <% current_cart.items.each do |product| %>
+                <div class="table-responsive">
+                    <table class="table shoping-cart-table">
 
-    <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th colspan="2">商品資訊</th>
-          <th>單價</th>
-          <th>數量</th>
-          <th>操作選項</th>
-        </tr>
-      </thead>
-      <tbody>
+                        <tbody>
+                        <tr>
+                            <td width="180">
+                                <div class="cart-product-imitation">
+                                  <%= link_to product_path(product) do %>
+                                    <% if product.photo.present? %>
+                                      <%= image_tag(product.photo.image.medium.url, class: "thumbnail") %>
+                                    <% else %>
+                                      <%= image_tag("http://placehold.it/200x200&text=No Pic", class: " thumbnail") %>
+                                    <% end %>
+                                <% end %>
+                                </div>
+                            </td>
+                            <td class="desc">
+                                <h3>
+                                    <a href="#" class="text-navy">
+                                      <%= link_to(product.title, product_path(product)) %>
+                                    </a>
+                                </h3>
+                                <p class="small">
 
-        <% current_cart.items.each do |product| %>
-          <tr>
-            <td>
-              <%= link_to product_path(product) do %>
-                <% if product.photo.present? %>
-                  <%= image_tag(product.photo.image.thumb.url, class: "thumbnail") %>
-                <% else %>
-                  <%= image_tag("http://placehold.it/200x200&text=No Pic", class: "thumbnail") %>
+                                </p>
+                                <dl class="small m-b-none">
+                                    <dt>商品說明</dt>
+                                    <dd><%= product.description %></dd>
+                                </dl>
+
+                                <div class="m-t-sm">
+                                    <a href="#" class="text-muted"><i class="fa fa-gift"></i> Add gift package</a>
+                                    |
+                                    <%= link_to item_path(product), method: :delete do %>
+                                    <a href="#" class="text-muted"><i class="fa fa-trash"></i> 刪除商品</a>
+                                    <% end %>
+                                </div>
+                            </td>
+
+                            <td>
+                                <%= product.price %>
+                                <s class="small text-muted">$230,00</s>
+                            </td>
+                            <td width="110">
+                                <% item = current_cart.find_cart_item(product) %>
+
+                                <%= form_for item, url: item_path(product) do |f| %>
+                                  <%= f.select :quantity, 1..product.quantity %>
+                                  <%= f.submit "更新", data: { disable_with: "Submiting..." } %>
+                                <% end %>
+                            </td>
+                            <td>
+                                <h4>
+                                  <%= product.price %>
+                                </h4>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <hr/>
+              <% end %>
+            </div>
+
+            <div class="ibox-content">
+                <%= link_to checkout_carts_path,
+                                    method: :post,
+                                    class: "btn btn-primary pull-right" do %>
+                          <i class="fa fa-shopping-cart"></i> 確認結賬
+                        <% end %>
+                <%= link_to products_path do %>
+                    <button class="btn btn-white"><i class="fa fa-arrow-left"></i> 繼續購物 </button>
                 <% end %>
-              <% end %>
-            </td>
-            <td>
-              <%= link_to(product.title, product_path(product)) %>
-            </td>
-            <td>
-              <%= product.price %>
-            </td>
-            <td>
-              <% item = current_cart.cart_items.find_by(product_id: product) %>
+            </div>
+        </div>
 
-              <%= form_for item, url: item_path(product) do |f| %>
-                <%= f.select :quantity, 1..product.quantity %>
-                <%= f.submit "更新", data: { disable_with: "Submiting..." } %>
-              <% end %>
-            </td>
-            <td>
-              <%= link_to item_path(product), method: :delete do %>
-                <i class="fa fa-trash"></i>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-
-      </tbody>
-    </table>
-
-    <br>
-
-    <div class="total clearfix">
-      <span class="pull-right">
-        <span> 總計 <%= render_cart_total_price(current_cart) %> NTD </span>
-      </span>
     </div>
+    <div class="col-md-3">
 
-    <hr>
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>購物車小記</h5>
+            </div>
+            <div class="ibox-content">
+                            <span>
+                                總計
+                            </span>
+                <h2 class="font-bold">
+                    $<%= render_cart_total_price(current_cart) %> NTD
+                </h2>
 
-    <div class="checkout clearfix">
-      <%= link_to("確認結帳", checkout_carts_path, method: :post, class: "btn btn-lg btn-danger pull-right") %>
+                <hr/>
+                            <span class="text-muted small">
+                                *For United States, France and Germany applicable sales tax will be applied
+                            </span>
+                <div class="m-t-sm">
+                    <div class="btn-group">
+                        <%= link_to checkout_carts_path,
+                                    method: :post,
+                                    class: "btn btn-primary btn-sm" do %>
+                          <i class="fa fa-shopping-cart"></i> 確認結賬
+                        <% end %>
+
+                        <%= link_to clean_carts_path,
+                                    method: :delete,
+                                    class: "btn btn-white btn-sm",
+                                    data: { confirm: "你確定要清空整個購物車嗎？"} do %>
+                           <i class="fa fa-trash"></i> 清空購物車
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>Support</h5>
+            </div>
+            <div class="ibox-content text-center">
+
+
+
+                <h3><i class="fa fa-phone"></i> +43 100 783 001</h3>
+                            <span class="small">
+                                Please contact with us if you have any questions. We are avalible 24h.
+                            </span>
+
+
+            </div>
+        </div>
+
+        <div class="ibox">
+            <div class="ibox-content">
+
+                <p class="font-bold">
+                    Other products you may be interested
+                </p>
+
+                <hr/>
+                <div>
+                    <a href="#" class="product-name"> Product 1</a>
+                    <div class="small m-t-xs">
+                        Many desktop publishing packages and web page editors now.
+                    </div>
+                    <div class="m-t text-righ">
+
+                        <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
+                    </div>
+                </div>
+                <hr/>
+                <div>
+                    <a href="#" class="product-name"> Product 2</a>
+                    <div class="small m-t-xs">
+                        Many desktop publishing packages and web page editors now.
+                    </div>
+                    <div class="m-t text-righ">
+
+                        <a href="#" class="btn btn-xs btn-outline btn-primary">Info <i class="fa fa-long-arrow-right"></i> </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
-  </div>
+</div>
 </div>

@@ -1074,7 +1074,8 @@ del {
 
 .product-imitation {
   text-align: center;
-  padding: 90px 0;
+  padding: 20px 10px 20px 10px;
+  margin: 5px;
   background-color: lighten($gray, 2%);
   color: darken($gray, 20%);
   font-weight: 600;
@@ -1082,9 +1083,7 @@ del {
 
 .cart-product-imitation {
   text-align: center;
-  padding-top: 30px;
-  height: 80px;
-  width: 80px;
+  padding-top: 1px;
   background-color: lighten($gray, 2%);
 }
 
@@ -1126,7 +1125,7 @@ table.shoping-cart-table {
   }
 
   tr td:last-child {
-    width: 80px;
+    width: 10px;
   }
 
 }
@@ -1163,7 +1162,8 @@ table.shoping-cart-table {
 .image-imitation {
   background-color: lighten($gray, 2%);
   text-align: center;
-  padding: 200px 0;
+  /*padding: 200px 0;*/
+  height: 400px;
 
 }
 

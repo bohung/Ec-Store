@@ -36,11 +36,11 @@
       </span>
     </div>
 
-    <hr>
+     <hr>
 
-    <h2> 寄送資訊 </h2>
+     <h2> 寄送資訊 </h2>
 
-    <table class="table table-striped table-bordered">
+     <table class="table table-striped table-bordered">
       <tbody>
         <tr>
           <td>
@@ -64,7 +64,6 @@
         </tr>
       </tbody>
     </table>
-
     <% if !@order.is_paid? %>
       <div class="pull-right" style="padding: 10px;">
         <%= render "pay_with_credit_card", order: @order %>
@@ -73,7 +72,7 @@
         <%= render "pay_with_atm", order: @order %>
       </div>
     <% else %>
-      <p class="text-center"> 此訂單已完成付款 </p>
+      <p class="text-center">此訂單已完成付款</p>
     <% end %>
   </div>
 </div>
